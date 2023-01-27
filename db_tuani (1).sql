@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2023 at 09:49 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.28
+-- Generation Time: Jan 27, 2023 at 03:41 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,8 +31,16 @@ CREATE TABLE `admins` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `name` text NOT NULL,
+  `typeuser` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `username`, `password`, `name`, `typeuser`) VALUES
+(1, 'admin', 'e6e061838856bf47e1de730719fb2609', 'Admin', 'nemesis');
 
 -- --------------------------------------------------------
 
@@ -51,8 +59,9 @@ CREATE TABLE `keluarans` (
   `bulan` text NOT NULL,
   `tanggal` text NOT NULL,
   `tgl_keluar` text NOT NULL,
-  `keterangan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `keterangan` text NOT NULL,
+  `admin` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,8 +75,9 @@ CREATE TABLE `masukans` (
   `tipe_sumber` text NOT NULL,
   `nm_sumber` text NOT NULL,
   `nominal` int(11) NOT NULL,
-  `tgl_masuk` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `tgl_masuk` text NOT NULL,
+  `admin` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -83,8 +93,9 @@ CREATE TABLE `sumbers` (
   `balance` int(11) NOT NULL,
   `tgl_masuk` text NOT NULL,
   `bulan` text NOT NULL,
-  `tahun` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `tahun` text NOT NULL,
+  `admin` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -122,7 +133,7 @@ ALTER TABLE `sumbers`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `keluarans`

@@ -1,0 +1,6 @@
+password : Crm?170845
+ 	
+username : crmd8684_crm
+
+ 	
+database :: crmd8684_crm
