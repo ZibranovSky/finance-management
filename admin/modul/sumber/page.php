@@ -4,19 +4,14 @@
 if (isset($_POST['simpan'])) {
     // echo "<meta http-equiv='refresh' content='0'>";
      // echo "<meta http-equiv='refresh' content='0'>";
-     insert_coverages();
+    insert_sumbers();
   
 }
 
 if (isset($_POST['hapus'])) {
-  hapus_coverages();
+  hapus_sumbers();
 }
   
-
-
-if (isset($_POST['hapus_int'])) {
- hapus_intro();
-}
 
 
  ?>
@@ -28,12 +23,12 @@ if (isset($_POST['hapus_int'])) {
   <div class="content-header">
      <div class="row mb-2">
           <div class="col-sm-6">
-           <h3 class="col-sm-6">Coverage</h3>
+           <h3 class="col-sm-6">Sumber Income</h3>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Coverage</li>
+              <li class="breadcrumb-item active">Sumber Income</li>
             </ol>
           </div><!-- /.col -->
         </div>
@@ -49,7 +44,7 @@ if (isset($_POST['hapus_int'])) {
 
 
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Tambah Coverage
+  Tambah Sumber Income
 </button>
       <div class="row">
         <div class="col-sm-12"><br>
@@ -63,7 +58,7 @@ if (isset($_POST['hapus_int'])) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal Coverage</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modal Sumber Income</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -71,13 +66,19 @@ if (isset($_POST['hapus_int'])) {
       <div class="modal-body">
         <form action="" method="POST">
           <div class="form-group">
-            <label>Title</label>
-            <input type="text" name="title" class="form-control">
+            <label>Kode Sumber</label>
+            <input type="text" name="kd_sumber" class="form-control" required="">
           </div>
           <div class="form-group">
-            <label>Deskripsi</label>
-            <textarea name="description" class="form-control"></textarea>
+            <label>Tipe Sumber</label>
+            <input type="text" name="tipe_sumber" class="form-control" required="">
           </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" required="">
+          </div>
+      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,8 +124,14 @@ if (isset($_POST['hapus_int'])) {
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Title</th>
-                                                <th>Deskripsi</th>
+                                                <th>Kode Sumber</th>
+                                                <th>Tipe Sumber</th>
+                                                <th>Name</th>
+                                                <th>Balance</th>
+                                                <th>Tanggal Masuk</th>
+                                                <th>Bulan</th>
+                                                <th>Tahun</th>
+                                                <th>Admin</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -135,13 +142,19 @@ if (isset($_POST['hapus_int'])) {
 
                                           $no = 1;
                                          
-                                          foreach (select_coverages() as $klb):
+                                          foreach (select_sumbers() as $klb):
 
                                            ?>
                                           <tr>
                                           <td><?=$no++;?></td>
-                                          <td><?=$klb['title'];?></td>
-                                          <td><?=$klb['description'];?></td>
+                                          <td><?=$klb['kd_sumber'];?></td>
+                                          <td><?=$klb['tipe_sumber'];?></td>
+                                          <td><?=$klb['name'];?></td>
+                                          <td><?=$klb['balance'];?></td>
+                                          <td><?=$klb['tgl_masuk'];?></td>
+                                          <td><?=$klb['bulan'];?></td>
+                                          <td><?=$klb['tahun'];?></td>
+                                          <td><?=$klb['admin'];?></td>
 
                                           
                                           <td>
@@ -155,7 +168,7 @@ if (isset($_POST['hapus_int'])) {
                                               <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal coverage</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                       <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -163,6 +176,8 @@ if (isset($_POST['hapus_int'])) {
                                                   <div class="modal-body">
                                                     <form action="" method="POST">
                                                       <input type="text" value="<?=$klb['id'];?>" hidden name="id">
+
+                                                      <p>Anda Yakin Ingin Menghapus Data Ini ?</p>
                                                   </div>
                                                   <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

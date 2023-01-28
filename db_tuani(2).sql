@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2023 at 03:41 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Generation Time: Jan 28, 2023 at 04:11 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,14 +33,15 @@ CREATE TABLE `admins` (
   `password` varchar(255) NOT NULL,
   `name` text NOT NULL,
   `typeuser` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `username`, `password`, `name`, `typeuser`) VALUES
-(1, 'admin', 'e6e061838856bf47e1de730719fb2609', 'Admin', 'nemesis');
+(1, 'admin', 'e6e061838856bf47e1de730719fb2609', 'Admin', 'nemesis'),
+(2, 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 'user', 'user');
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,7 @@ CREATE TABLE `keluarans` (
   `tgl_keluar` text NOT NULL,
   `keterangan` text NOT NULL,
   `admin` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,7 @@ CREATE TABLE `masukans` (
   `nominal` int(11) NOT NULL,
   `tgl_masuk` text NOT NULL,
   `admin` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,14 @@ CREATE TABLE `sumbers` (
   `bulan` text NOT NULL,
   `tahun` text NOT NULL,
   `admin` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sumbers`
+--
+
+INSERT INTO `sumbers` (`id`, `kd_sumber`, `tipe_sumber`, `name`, `balance`, `tgl_masuk`, `bulan`, `tahun`, `admin`) VALUES
+(6, 'INC002ATM', 'ATM', 'Mandiri', 0, '28-01-2023', '01', '2023', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -133,7 +141,7 @@ ALTER TABLE `sumbers`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `keluarans`
@@ -146,6 +154,12 @@ ALTER TABLE `keluarans`
 --
 ALTER TABLE `masukans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sumbers`
+--
+ALTER TABLE `sumbers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

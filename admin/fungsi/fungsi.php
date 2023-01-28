@@ -23,26 +23,12 @@ function simpan_admin()
 	global $koneksi;
 	$username = $_POST['username'];
 	$password = md5($_POST['password']);
-	$nama = $_POST['nama'];
-	$no_tlp = $_POST['no_tlp'];
-	$alamat = $_POST['alamat'];
-	$foto = $_FILES['foto']['name'];
+	$name = $_POST['name'];
 
-	if ($foto!= "") {
-		$allowed_ext = array('png','jpg');
-		$x = explode(".", $foto);
-		$ext = strtolower(end($x));
-		$file_tmp = $_FILES['foto']['tmp_name'];
-		$angka_acak = rand(1,999);
-		$nama_file_baru = $angka_acak.'-'.$foto;
-		if (in_array($ext, $allowed_ext)===true) {
-			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-			$res = mysqli_query($koneksi, "INSERT INTO admins SET username='$username', password='$password', nama='$nama', no_tlp='$no_tlp', alamat='$alamat', foto='$nama_file_baru'");
 
-		}
-	}else if (empty($_POST['foto'])) {
-		$res = mysqli_query($koneksi, "INSERT INTO admins SET username='$username', password='$password', nama='$nama', no_tlp='$no_tlp', alamat='$alamat'");
-	}
+
+	$res = mysqli_query($koneksi, "INSERT INTO admins SET username='$username', password='$password', name='$name', typeuser='user'");
+	
 	
 }
 
@@ -50,16 +36,9 @@ function hapus_admin()
 {
 	global $koneksi;
 	$id = $_POST['id'];
-	$select = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id'");
-	$array = mysqli_fetch_array($select);
-	$foto = $array['foto'];
-
-	if ($array['foto'] == "") {
-		return mysqli_query($koneksi, "DELETE FROM admins WHERE id='$id'");
-	}else{
-		unlink("img/$foto");
-		return mysqli_query($koneksi, "DELETE FROM admins WHERE id='$id'");
-	}
+	
+	return mysqli_query($koneksi, "DELETE FROM admins WHERE id='$id'");
+	
 }
 
 function edit_admin()
@@ -449,25 +428,70 @@ function hapus_intro()
 }
 
 // coverage section
-function select_coverages()
+function select_sumbers()
 {
 	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM coverage");
+	return mysqli_query($koneksi, "SELECT * FROM sumbers");
 }
 
-function insert_coverages()
+function insert_sumbers()
 {
-	global $koneksi;
-	$title = $_POST['title'];
-	$description = $_POST['description'];
-	return mysqli_query($koneksi, "INSERT INTO coverage SET title='title', description='$description'");
+  global $koneksi;
+
+  date_default_timezone_set("Asia/Jakarta");
+  $tanggalSekarang = date("d-m-Y");
+  $jam2 = date("hi");
+  $jamSekarang = date("h:i a");
+  $bulan = date("m");
+  $tahun = date("Y");
+
+  // if ($bulan=="01") {
+  // 	$newMoon = "Januari";
+  // }else if ($bulan=="02") {
+  // 		$newMoon = "Februari";
+  // }else if ($bulan=="03") {
+  // 		$newMoon = "Maret";
+  // }else if ($bulan=="04") {
+  // 		$newMoon = "April";
+  // }else if ($bulan=="05") {
+  // 		$newMoon = "Mei";
+  // }else if ($bulan=="06") {
+  // 		$newMoon = "Juni";
+  // }else if ($bulan=="07") {
+  // 		$newMoon = "Juli";
+  // }else if ($bulan=="08") {
+  // 		$newMoon = "Agustus";
+  // }else if ($bulan=="09") {
+  // 		$newMoon = "September";
+  // }else if ($bulan=="10") {
+  // 		$newMoon = "Oktober";
+  // }else if ($bulan=="12") {
+  // 		$newMoon = "November";
+  // }else if ($bulan=="12") {
+  // 		$newMoon = "Desember";
+  // }
+
+  	$kd_sumber = $_POST['kd_sumber'];
+  	$tipe_sumber = $_POST['tipe_sumber'];
+  	$name = $_POST['name'];
+  	$balance = $_POST['balance'];
+
+  	// panggil admin
+
+  	$id = $_SESSION['idtuyul'];
+  	$adm_sumber = mysqli_query($koneksi, "SELECT * FROM admins WHERE id = '$id'");
+  	$row = mysqli_fetch_array($adm_sumber);
+
+  	$admin =  $row['name'];
+
+	return mysqli_query($koneksi, "INSERT INTO sumbers SET kd_sumber='$kd_sumber', tipe_sumber='$tipe_sumber', name='$name', balance=0, tgl_masuk='$tanggalSekarang', bulan='$bulan', tahun='$tahun', admin='$admin'");
 }
 
-function hapus_coverages()
+function hapus_sumbers()
 {
 	global $koneksi;
 	$id = $_POST['id'];
-	return mysqli_query($koneksi, "DELETE FROM coverage WHERE id='$id'");
+	return mysqli_query($koneksi, "DELETE FROM sumbers WHERE id='$id'");
 }
 
 

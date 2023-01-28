@@ -115,28 +115,34 @@
                                 </li>
                             </ul> -->
                         </li>
+                        <?php 
+                            if ($adm['typeuser']!="nemesis") {
+                                echo "";
+                            }else{
+                         ?>
                         <li>
                             <a href="index.php?m=admin&s=awal">
                                 <i class="fas fa-user"></i>Data Admin</a>
                             
                         </li>
+                    <?php } ?>
                          <li>
-                            <a href="index.php?m=pelanggan&s=awal">
+                            <a href="index.php?m=sumber&s=awal">
                                 <i class="fas fa-id-card"></i>Sumber Income</a>
                             
                         </li>
                          <li>
-                                <a href="index.php?m=keluhan&s=page">
+                                <a href="index.php?m=masukan&s=page">
                                 <i class="fas fa-book"></i>Masukan</a>
                             
                         </li>
                          <li>
-                                <a href="index.php?m=rating&s=page">
+                                <a href="index.php?m=keluaran&s=page">
                                 <i class="fas fa-star"></i>Keluaran</a>
                             
                         </li>
                         <li>
-                            <a href="index.php?m=saran&s=page">
+                            <a href="index.php?m=rekap&s=page">
                                 <i class="fas fa-thumbs-up"></i>Rekap</a>
                             
                         </li>
@@ -206,102 +212,50 @@
                 <div class="menu-sidebar2__content js-scrollbar2">
                     <div class="account2">
                         <div class="image img-cir img-120">
-                               <?php 
-
-                        if ($adm['foto'] != "") {
-
-                         ?>
-                        <img src="img/<?=$adm['foto'];?>" alt="John Doe" />
-                        <?php 
-
-                             }else{
-
-                         ?>
+                         
 
                          <img src="img/user_logo.png" width="150">
 
-                     <?php } ?>
+                   
                         </div>
-                        <a href="index.php?m=akun"><h4 class="name"><?= $adm['nama']; ?></h4></a>
+                        <a href="index.php?m=akun"><h4 class="name"><?= $adm['name']; ?></h4></a>
                         <a href="logout.php"><button class="btn btn-danger">Sign out</button></a>
                     </div>
                     <nav class="navbar-sidebar2">
                     <ul class="list-unstyled navbar__list">
                         
 
+                      <?php 
+                            if ($adm['typeuser']!="nemesis") {
+                                echo "";
+                            }else{
+                         ?>
                         <li>
                             <a href="index.php?m=admin&s=awal">
                                 <i class="fas fa-user"></i>Data Admin</a>
                             
                         </li>
-                           <li>
-                            <a href="index.php?m=pelanggan&s=awal">
-                                <i class="fas fa-id-card"></i>Data Pelanggan</a>
-                            
-                        </li>
-                     
+                    <?php } ?>
                          <li>
-                                <a href="index.php?m=keluhan&s=page">
-                                <i class="fas fa-book"></i>Keluhan</a>
+                            <a href="index.php?m=sumber&s=awal">
+                                <i class="fas fa-id-card"></i>Sumber Income</a>
                             
                         </li>
                          <li>
-                                <a href="index.php?m=rating&s=page">
-                                <i class="fas fa-star"></i>Rating</a>
-                            
-                        </li>
-                       
-                        <li>
-                            <a href="index.php?m=saran&s=page">
-                                <i class="fas fa-thumbs-up"></i>Saran</a>
+                                <a href="index.php?m=masukan&s=page">
+                                <i class="fas fa-book"></i>Masukan</a>
                             
                         </li>
                          <li>
-                            <a href="index.php?m=tentang&s=page">
-                            <i class="fas fa-users"></i>Tentang Kami</a>
-                            
-                        </li>
-                         <li class="active has-sub">
-                             <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Menu Awal
-                              <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span> 
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                            <a href="index.php?m=tentang&s=page">
-                            <i class="fas fa-users"></i>Tentang Kami</a>
+                                <a href="index.php?m=keluaran&s=page">
+                                <i class="fas fa-star"></i>Keluaran</a>
                             
                         </li>
                         <li>
-                            <a href="index.php?m=product&s=page">
-                            <i class="fas fa-shopping-cart"></i>Produk Kami</a>
+                            <a href="index.php?m=rekap&s=page">
+                                <i class="fas fa-thumbs-up"></i>Rekap</a>
                             
                         </li>
-                         <li>
-                            <a href="index.php?m=kelebihan&s=page">
-                            <i class="fas fa-plus"></i>Kelebihan Kami</a>
-                            
-                        </li>
-                        <li>
-                            <a href="index.php?m=services&s=page">
-                            <i class="fas fa-wrench"></i>Services</a>
-                            
-                        </li>
-                        <li>
-                            <a href="index.php?m=intro&s=page">
-                            <i class="fas fa-star"></i>Intro</a>
-                            
-                        </li>
-                        <li>
-                            <a href="index.php?m=coverage&s=page">
-                            <i class="fas fa-globe"></i>Coverage</a>
-                            
-                        </li>
-                            </ul> 
-                        </li>
-                       
                        
                     </ul>
                     </nav>

@@ -63,20 +63,9 @@ if (isset($_POST['hapus'])) {
         </div>
          <div class="form-group">
           <label>Nama</label>
-          <input type="text" class="form-control" name="nama">
+          <input type="text" class="form-control" name="name">
         </div>
-         <div class="form-group">
-          <label>No Tlp</label>
-          <input type="text" class="form-control" name="no_tlp">
-        </div>
-        <div class="form-group">
-          <label>Alamat</label>
-          <textarea class="form-control" name="alamat"></textarea>
-        </div>
-         <div class="form-group">
-          <label>Foto</label>
-          <input type="file" class="form-control" name="foto">
-        </div>
+       
         <div class="modal-footer">
         <button type="submit" name="simpan" class="btn btn-primary">Save changes</button>
         <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -97,8 +86,6 @@ if (isset($_POST['hapus'])) {
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
-                                                <th>No Tlp</th>
-                                                <th>Foto</th>
                                                 <th>aksi</th>
                                                 
                                             </tr>
@@ -115,20 +102,8 @@ if (isset($_POST['hapus'])) {
                                         <tbody>
                                             <tr>
                                                 <td><?php echo $no++; ?></td>
-                                                <td><?php echo $row['nama']; ?></td>
-                                                <td><?php echo $row['no_tlp']; ?></td>
-                                                <td>
-                                                  <?php 
-
-                                                  if ($row['foto'] != "") {
-                                                    echo '<img src="img/'.$row['foto'].'" width="150">';
-                                                  }else{
-                                                    echo '<img src="img/user_logo.png" width="150">';
-                                                  }
-
-                                                   ?>
-                                                </td>
-                                                
+                                                <td><?php echo $row['name']; ?></td>
+                                               
                                                     
 
                                                 </td>
@@ -155,21 +130,8 @@ if (isset($_POST['hapus'])) {
                           <div class="modal-body">
                    
                         <p>Nama Admin</p>
-                        <b><p><?= $row['nama']; ?></p></b>
+                        <b><p><?= $row['name']; ?></p></b>
 
-                        <p>Foto Admin</p>
-                                                        <?php 
-
-                                if ($row['foto']!='') {
-                                  echo '<img src="img/'.$row['foto'].'" width="150">';
-                                  
-                                }else{
-                                  echo '<img src="img/user_logo.png" width="150">';
-                                }
-
-
-
-                                 ?>
                         
                        
                         

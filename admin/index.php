@@ -1,13 +1,14 @@
 <?php 
 session_start();
 include 'sesi.php';
-$nama_app = " | CRM NETLAND";
+$nama_app = " | TUANI";
 $modul =  (isset($_GET['m']))?$_GET['m']:"awal";
 switch ($modul) {
 	case 'awal': default: $judul = "Dashboard $nama_app"; include 'awal.php'; break;
-	case 'admin': include 'modul/admin/index.php'; break;
+	case 'admin':  include 'modul/admin/index.php'; break;
 	case 'akun': $judul = "Akun $nama_app"; include 'modul/admin/akun.php'; break;
-	case 'keluhan': include 'modul/keluhan/index.php'; break;
+	case 'sumber': include 'modul/sumber/index.php'; break;
+	
 	case 'rating': include 'modul/rating/index.php'; break;
 	case 'saran': include 'modul/saran/index.php'; break;
 	case 'tentang': include 'modul/tentang/index.php'; break;

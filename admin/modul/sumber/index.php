@@ -2,9 +2,9 @@
 
 include 'sesi.php';
 $modul =  (isset($_GET['s']))?$_GET['s']:"awal";
-$nama_app = " | CRM";
+$nama_app = " | TUANI";
 switch ($modul) {
-	case 'page': default; $judul="Coverage $nama_app"; include 'page.php'; break;
+	case 'page': default; $judul="Sumber $nama_app"; include 'page.php'; break;
 
 
 }
