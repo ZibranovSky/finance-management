@@ -47,167 +47,15 @@ function edit_admin()
 	$id = $_POST['id'];
 	$username = $_POST['username'];
 	$password = md5($_POST['password']);
-	$nama = $_POST['nama'];
-	$no_tlp = $_POST['no_tlp'];
-	$alamat = $_POST['alamat'];
-	$foto = $_FILES['foto']['name'];
-
-	// unlink 
-	$sql = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id'");
-	$r = mysqli_fetch_array($sql);
-
-	$hapus_foto = $r['foto'];
-
-		if(isset($_POST['ubahfoto']))
-	{
-		if ($row['foto']=="") 
-		{
-				if ($foto != "") {
-				$allowed_ext = array('png','jpg');
-				$x = explode(".", $foto);
-				$ekstensi = strtolower(end($x));
-				$file_tmp = $_FILES['foto']['tmp_name'];
-				$angka_acak = rand(1,999);
-		   		$nama_file_baru = $angka_acak.'-'.$foto;
-		   		    if (in_array($ekstensi, $allowed_ext) === true) {
-		      			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-		      			$result =  mysqli_query($koneksi, "UPDATE admins SET username='$username', password='$password', nama='$nama', no_tlp='$no_tlp', alamat='$alamat', foto='$nama_file_baru' WHERE id='$id'");
-		      			
-		      			
-		    }
-
-
-
-			}
-		}else if ($row['foto']!="") {
-			if ($foto != "") {
-				$allowed_ext = array('png','jpg');
-				$x = explode(".", $foto);
-				$ekstensi = strtolower(end($x));
-				$file_tmp = $_FILES['foto']['tmp_name'];
-				$angka_acak = rand(1,999);
-		   		$nama_file_baru = $angka_acak.'-'.$foto;
-		   		    if (in_array($ekstensi, $allowed_ext) === true) {
-		      			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-		      			$result =  mysqli_query($koneksi, "UPDATE admins SET username='$username', password='$password', nama='$nama', no_tlp='$no_tlp', alamat='$alamat', foto='$nama_file_baru' WHERE id='$id'");
-		      			if ($result) {
-		      				unlink("img/$hapus_foto");
-		      			}
-
-		      			
-		    }
-
-
-
-			}
-		}	
-	}
-
-	if (empty($_POST['foto'])) {
-		return  mysqli_query($koneksi, "UPDATE admins SET username='$username', password='$password', nama='$nama', no_tlp='$no_tlp', alamat='$alamat' WHERE id='$id'");
-	}
+	$name = $_POST['name'];
+	
+	return  mysqli_query($koneksi, "UPDATE admins SET username='$username', password='$password', name='$name' WHERE id='$id'");
+	
 
 
 }
 
-// ---------------------------------------------KELUHAN SECTION------------------------------------------------------------
-function select_keluhan(){
-	global $koneksi;
 
-	return mysqli_query($koneksi, "SELECT * FROM keluhans");
-}
-
-
-function update_keluhan(){
-	global $koneksi;
-
-	$tanggapan = $_POST['tanggapan'];
-	$kd_keluhan = $_POST['kd_keluhan'];
-	$id_pelanggan = $_POST['id_pelanggan'];
-
-	date_default_timezone_set("Asia/Jakarta");
-	$waktu_tanggapan = date("d-m-Y H:i");
-
-
-	// select admin
-	$id_admin = $_SESSION['idtuyul'];
-
-	$select_admin = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id_admin'");
-
-	$row = mysqli_fetch_array($select_admin);
-
-	$nama_admin = $row['nama'];
-
-	echo $nama_admin;
-
-	$update_q = mysqli_query($koneksi, "UPDATE keluhans SET waktu_tanggapan='$waktu_tanggapan', tanggapan='$tanggapan', admin='$nama_admin' WHERE kd_keluhan='$kd_keluhan' AND id_pelanggan='$id_pelanggan'");;
-
-	if ($update_q) {
-		echo "<script>alert('sukses memberi tanggapan!')</script>";
-	}else{
-		echo "<script>alert('gagal memberi tanggapan!')</script>";
-	}
-
-
-}
-
-// rating sectio
-
-function select_rating()
-{
-	global $koneksi;
-
-	return mysqli_query($koneksi, "SELECT * FROM ratings ORDER BY id");
-}
-
-function update_rating_admin($id1, $id2)
-{
-	global $koneksi;
-	$id = $id1;
-	$id_pelanggan = $id2;
-
-	$balasan = $_POST['balasan'];
-
-	$id_admin = $_SESSION['idtuyul'];
-
-	$select_a = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id_admin'");
-	$row = mysqli_fetch_array($select_a);
-
-	$admin = $row['nama'];
-
-	date_default_timezone_set("Asia/Jakarta");
-	$tgl_balasan = date("d-m-Y H:i");
-
-	$update_q = mysqli_query($koneksi, "UPDATE ratings SET balasan='$balasan', tgl_balasan='$tgl_balasan', admin='$admin' WHERE id='$id' AND id_pelanggan='$id_pelanggan'");
-	if ($update_q) {
-		echo "<script>alert('Balas rating sukses')</script>";
-	}else{
-		echo "<script>alert('Kegagalan dalam membalas rating')</script>";
-	}
-}
-
-function hapus_rating($id1)
-{
-	global $koneksi;
-
-	return mysqli_query($koneksi, "DELETE FROM ratings WHERE id='$id1'");
-}
-
-// saran section
-function select_saran()
-{
-	global $koneksi;
-
-	return mysqli_query($koneksi, "SELECT * FROM sarans ORDER BY id");
-}
-
-function hapus_saran()
-{
-    global $koneksi;
-    $id = $_POST['id'];
-    
-    return mysqli_query($koneksi, "DELETE FROM sarans where id = '$id'");
-}
 
 // statistic section
 function select_admin_2()
@@ -218,216 +66,11 @@ function select_admin_2()
 	echo $r['jadmin'];
 }
 
-function stat_keluhan1()
-{
-	global $koneksi;
-	$select = mysqli_query($koneksi, "SELECT count(id) AS jkeluhan FROM keluhans");
-	$r = mysqli_fetch_array($select);
-	echo $r['jkeluhan'];
-}
-
-function stat_keluhan2()
-{
-	global $koneksi;
-	$select = mysqli_query($koneksi, "SELECT count(id) AS jkeluhan1 FROM keluhans WHERE tanggapan != ''");
-	$r = mysqli_fetch_array($select);
-	echo $r['jkeluhan1'];
-}
-
-function stat_rating()
-{
-	global $koneksi;
-	$select = mysqli_query($koneksi, "SELECT count(id) AS jrating FROM ratings");
-	$r = mysqli_fetch_array($select);
-	echo $r['jrating'];
-}
-
-function stat_saran()
-{
-	global $koneksi;
-	$select = mysqli_query($koneksi, "SELECT count(id) AS jsaran FROM sarans");
-	$r = mysqli_fetch_array($select);
-	echo $r['jsaran'];
-}
 
 
-// Tentang kami section
-
-function select_tentang()
-{
-	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM tb_tentang_kami");
-} 
-
-function insert_tentang()
-{
-	global $koneksi;
-	$tentang_kami = $_POST['tentang_kami'];
-	$id_admin = $_POST['id_admin'];
-	$save = mysqli_query($koneksi, "INSERT INTO tb_tentang_kami SET tentang_kami='$tentang_kami', id_admin='$id_admin'");
-}
-
-function hapus_tentang()
-{
-	global $koneksi;
-	$id = $_POST['id'];
-	return mysqli_query($koneksi, "DELETE FROM tb_tentang_kami WHERE id ='$id'");
-}
-
-// pelanggan section
-
-function query_pelanggan()
-{
-	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM users");
-}
-
-function hapus_pelanggan($id){
-	global $koneksi;
-	$id = $id;
-	return mysqli_query($koneksi, "DELETE FROM users WHERE id='$id'");
-}
 
 
-// product section
-function select_product()
-{
-	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM tb_product");
-}
-
-function tambah_produk()
-{
-	global $koneksi;
-	$kapasitas = $_POST['kapasitas'];
-	$harga = $_POST['harga'];
-
-	$save = mysqli_query($koneksi, "INSERT INTO tb_product SET kapasitas ='$kapasitas', harga='$harga'");
-}
-
-function hapus_product()
-{
-	global $koneksi;
-	$id = $_POST['id'];
-	return mysqli_query($koneksi, "DELETE FROM tb_product WHERE id='$id'");
-}
-
-// kelebihan section
-function select_kelebihan()
-{
-	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM kelebihans");
-}
-
-function insert_kelebihan()
-{
-	global $koneksi;
-	$title = $_POST['title'];
-	$description = $_POST['description'];
-	return mysqli_query($koneksi, "INSERT INTO kelebihans SET title='$title', description='$description'");
-}
-
-function delete_kelebihan()
-{
-	global $koneksi;
-	$id = $_POST['id'];
-	return mysqli_query($koneksi, "DELETE FROM kelebihans WHERE id='$id'");
-}
-
-
-// services section
-
-function select_services()
-{
-	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM services");
-}
-
-function insert_services()
-{
-	global $koneksi;
-	$title = $_POST['title'];
-	$description = $_POST['description'];
-	$foto = $_FILES['foto']['name'];
-
-	if ($foto!= "") {
-		$allowed_ext = array('png','jpg');
-		$x = explode(".", $foto);
-		$ext = strtolower(end($x));
-		$file_tmp = $_FILES['foto']['tmp_name'];
-		$angka_acak = rand(1,999);
-		$nama_file_baru = $angka_acak.'-'.$foto;
-		if (in_array($ext, $allowed_ext)===true) {
-			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-			$res = mysqli_query($koneksi, "INSERT INTO services SET title='$title', description='$description',foto='$nama_file_baru'");
-
-		}
-	}
-}
-
-function delete_services()
-{
-	global $koneksi;
-	$id = $_POST['id'];
-	$select = mysqli_query($koneksi, "SELECT * FROM services WHERE id='$id'");
-	$array = mysqli_fetch_array($select);
-	$foto = $array['foto'];
-
-	if ($array['foto'] == "") {
-		return mysqli_query($koneksi, "DELETE FROM services WHERE id='$id'");
-	}else{
-		unlink("img/$foto");
-		return mysqli_query($koneksi, "DELETE FROM services WHERE id='$id'");
-	}
-
-}
-
-// intro section
-
-function select_intro()
-{
-	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM intros");
-}
-
-function insert_intro()
-{
-	global $koneksi;
-	$description = $_POST['description'];
-	$title = $_POST['title'];
-	$foto = $_FILES['foto']['name'];	
-	if ($foto!= "") {
-		$allowed_ext = array('png','jpg');
-		$x = explode(".", $foto);
-		$ext = strtolower(end($x));
-		$file_tmp = $_FILES['foto']['tmp_name'];
-		$angka_acak = rand(1,999);
-		$nama_file_baru = $angka_acak.'-'.$foto;
-		if (in_array($ext, $allowed_ext)===true) {
-			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-			$res = mysqli_query($koneksi, "INSERT INTO intros SET title='$title', description='$description',foto='$nama_file_baru'");
-
-		}
-	}
-}
-
-function hapus_intro()
-{
-	global $koneksi;
-	$id = $_POST['id'];
-	$select = mysqli_query($koneksi, "SELECT * FROM intros WHERE id='$id'");
-	$array = mysqli_fetch_array($select);
-	$foto = $array['foto'];
-
-	if ($array['foto'] == "") {
-		return mysqli_query($koneksi, "DELETE FROM intros WHERE id='$id'");
-	}else{
-		unlink("img/$foto");
-		return mysqli_query($koneksi, "DELETE FROM intros WHERE id='$id'");
-	}
-}
-
-// coverage section
+// sumber section
 function select_sumbers()
 {
 	global $koneksi;
@@ -484,7 +127,7 @@ function insert_sumbers()
 
   	$admin =  $row['name'];
 
-	return mysqli_query($koneksi, "INSERT INTO sumbers SET kd_sumber='$kd_sumber', tipe_sumber='$tipe_sumber', name='$name', balance=0, tgl_masuk='$tanggalSekarang', bulan='$bulan', tahun='$tahun', admin='$admin'");
+	return mysqli_query($koneksi, "INSERT INTO sumbers SET kd_sumber='$kd_sumber', tipe_sumber='$tipe_sumber', name='$name', balance=0, tgl_masuk='$tanggalSekarang', bulan='$bulan', tahun='$tahun', id_admin='$id', admin='$admin'");
 }
 
 function hapus_sumbers()
@@ -492,6 +135,81 @@ function hapus_sumbers()
 	global $koneksi;
 	$id = $_POST['id'];
 	return mysqli_query($koneksi, "DELETE FROM sumbers WHERE id='$id'");
+}
+
+
+// MASUKAN SECTION
+
+function select_masukan()
+{
+	global $koneksi;
+
+	$id = $_SESSION['idtuyul'];
+
+	return mysqli_query($koneksi, "SELECT * FROM masukans WHERE id_admin='$id'");
+
+}
+
+
+function insert_masukan()
+{
+	global $koneksi;
+
+	date_default_timezone_set("Asia/Jakarta");
+	$tanggalSekarang = date("d-m-Y");
+	$jam2 = date("hi");
+	$jamSekarang = date("h:i a");
+	$bulan = date("m");
+	$tahun = date("Y");
+
+	$kd_sumber = $_POST['kd_sumber'];
+	$tipe_sumber = $_POST['tipe_sumber'];
+	$nm_sumber = $_POST['nm_sumber'];
+	$nominal = $_POST['nominal'];
+
+	$id_admin = $_SESSION['idtuyul'];
+
+	// select admin
+
+	$selec_admin = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id_admin'");
+	$row = mysqli_fetch_array($selec_admin);
+	$nama_admin = $row['name'];
+
+
+	// select sumber
+
+	$selec_sumber = mysqli_query($koneksi, "SELECT * FROM sumbers WHERE kd_sumber = '$kd_sumber' AND id_admin='$id_admin'");
+	$row_s = mysqli_fetch_array($selec_sumber);
+	$balance = $row_s['balance'];
+
+	if ($nominal <= 0) {
+		echo '<script>alert("Nominal masuk tidak boleh <= 0 ")</script>';
+	}else{
+		// Update balance
+		
+		$new_balance = $nominal + $balance;
+		$update_sumber = mysqli_query($koneksi, "UPDATE sumbers SET balance='$new_balance' WHERE kd_sumber = '$kd_sumber' AND id_admin='$id_admin'");
+
+		// // insert masukan
+		$insert_masukan = mysqli_query($koneksi, "INSERT INTO masukans SET kd_sumber='$kd_sumber', tipe_sumber='$tipe_sumber', nm_sumber='$nm_sumber', nominal='$nominal', tgl_masuk='$tanggalSekarang', bulan='$bulan', tahun='$tahun', id_admin='$id_admin', admin='$nama_admin'");
+	}
+	
+}
+
+
+function hapus_masukan()
+{
+	global $koneksi;
+	$id = $_POST['id'];
+
+	return mysqli_query($koneksi, "DELETE FROM masukans WHERE id='$id'");
+}
+
+
+// FUNCTION RUPIAH
+function rupiah($angka){
+	$hasil = "Rp. ". number_format($angka,2,',','.');
+	return $hasil;
 }
 
 

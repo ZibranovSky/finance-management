@@ -115,7 +115,8 @@
                                 </li>
                             </ul> -->
                         </li>
-                        <?php 
+                       
+                      <?php 
                             if ($adm['typeuser']!="nemesis") {
                                 echo "";
                             }else{
@@ -128,17 +129,17 @@
                     <?php } ?>
                          <li>
                             <a href="index.php?m=sumber&s=awal">
-                                <i class="fas fa-id-card"></i>Sumber Income</a>
+                                <i class="fas fa-id-card"></i>Sumber / Income</a>
                             
                         </li>
                          <li>
                                 <a href="index.php?m=masukan&s=page">
-                                <i class="fas fa-book"></i>Masukan</a>
+                                <i class="fas fa-book"></i>Income Masukan</a>
                             
                         </li>
                          <li>
                                 <a href="index.php?m=keluaran&s=page">
-                                <i class="fas fa-star"></i>Keluaran</a>
+                                <i class="fas fa-star"></i>Keluaran Dana</a>
                             
                         </li>
                         <li>
@@ -238,17 +239,17 @@
                     <?php } ?>
                          <li>
                             <a href="index.php?m=sumber&s=awal">
-                                <i class="fas fa-id-card"></i>Sumber Income</a>
+                                <i class="fas fa-id-card"></i>Sumber / Income</a>
                             
                         </li>
                          <li>
                                 <a href="index.php?m=masukan&s=page">
-                                <i class="fas fa-book"></i>Masukan</a>
+                                <i class="fas fa-book"></i>Income Masukan</a>
                             
                         </li>
                          <li>
                                 <a href="index.php?m=keluaran&s=page">
-                                <i class="fas fa-star"></i>Keluaran</a>
+                                <i class="fas fa-star"></i>Keluaran Dana</a>
                             
                         </li>
                         <li>

@@ -4,7 +4,7 @@
 if (isset($_POST['simpan'])) {
     // echo "<meta http-equiv='refresh' content='0'>";
      // echo "<meta http-equiv='refresh' content='0'>";
-     insert_intro();
+     insert_masukan();
   
 }
 
@@ -15,7 +15,7 @@ if (isset($_POST['hapus_keluhan'])) {
 
 
 if (isset($_POST['hapus_int'])) {
- hapus_intro();
+  hapus_masukan();
 }
 
 
@@ -28,12 +28,12 @@ if (isset($_POST['hapus_int'])) {
   <div class="content-header">
      <div class="row mb-2">
           <div class="col-sm-6">
-           <h3 class="col-sm-6">Intro</h3>
+           <h3 class="col-sm-6">Masukan</h3>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Intro</li>
+              <li class="breadcrumb-item active">Masukan</li>
             </ol>
           </div><!-- /.col -->
         </div>
@@ -47,20 +47,9 @@ if (isset($_POST['hapus_int'])) {
         <div class="col-sm-12"><br>
           <!-- Button trigger modal -->
 
-           <?php 
-      global $koneksi;
-     
-      $select = mysqli_query($koneksi, "SELECT count(id) AS jintro FROM intros");
-      $r = mysqli_fetch_array($select);
-
-      if ($r['jintro'] == 1) {
-        echo "";
-      }else{
-
-       ?>
-
+       
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Tambah Intro
+  Tambah Income Masukan
 </button>
       <div class="row">
         <div class="col-sm-12"><br>
@@ -74,7 +63,7 @@ if (isset($_POST['hapus_int'])) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal Intro</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modal Income Masukan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -82,17 +71,67 @@ if (isset($_POST['hapus_int'])) {
       <div class="modal-body">
         <form action="" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <label>Title</label>
-            <input type="text" class="form-control" name="title">
+          <label>Kode Sumber</label>
+              <?php 
+                global $koneksi;
+                $id = $adm['id'];
+                $barang = "SELECT * FROM sumbers WHERE id_admin='$id'";
+                $result = mysqli_query($koneksi, $barang);
+                $jsArray = "var sumber = new Array();";
+
+                echo '<select name="kd_sumber" id="kd_sumber" class="form-control" onchange="changeValue(this.value)">';
+                echo '<option>--- PILIH ---</option>';
+
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<option name="kd_sumber" value="'. $row['kd_sumber'] .'">'.$row['kd_sumber'].'</option>';
+                    $jsArray .= "sumber['". $row['kd_sumber'] ."'] 
+                    = { tipe_sumber:'". addslashes($row['tipe_sumber']) ."',
+                        name:'". addslashes($row['name']) ."',
+                      balance:'". addslashes(rupiah($row['balance'])) ."'
+                    };";
+                    
+                  }
+                  echo '</select>';
+                
+                ?>
+                <script type="text/javascript">
+            <?php echo $jsArray; ?>
+            function changeValue(kd_sumber){
+              
+              document.getElementById('tipe_sumber').value = sumber[kd_sumber].tipe_sumber;
+              document.getElementById('name').value = sumber[kd_sumber].name;
+              document.getElementById('balance').value = sumber[kd_sumber].balance;
+              
+            }
+          </script>
+             </select>
           </div>
+      
+  
+
+           
+      <div class="form-group">
+            <label>Tipe Sumber</label>
+            <input type="text" class="form-control" name="tipe_sumber" readonly id="tipe_sumber"> 
+          </div>
+
           <div class="form-group">
-            <label>Deskripsi</label>
-            <textarea name="description" class="form-control"></textarea>
+            <label>Nama Sumber</label>
+            <input type="text" class="form-control" name="nm_sumber" readonly id="name"> 
           </div>
+          
           <div class="form-group">
-            <label>Foto</label>
-            <input type="file" class="form-control" name="foto">
+            <label>Saldo / Balance</label>
+            <input type="text" class="form-control" name="balance" readonly id="balance"> 
           </div>
+
+
+          
+          <div class="form-group">
+            <label>Nominal Masuk</label>
+            <input type="text" class="form-control" name="nominal"> 
+          </div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -102,8 +141,6 @@ if (isset($_POST['hapus_int'])) {
     </div>
   </div>
 </div>
-
-<?php } ?>
 
 <!-- Modal -->
 
@@ -164,9 +201,14 @@ if (isset($_POST['hapus_int'])) {
                                         <table class="table table-responsive" id="table">
                                         <thead>
                                             <tr>
-                                                <th>Title</th>
-                                                <th>Deskripsi Intro</th>
-                                                <th>Foto</th>
+                                                <th>No</th>
+                                                <th>Kode Sumber</th>
+                                                <th>Tipe Sumber</th>
+                                                <th>Nama Sumber</th>
+                                                <th>Nominal</th>
+                                                <th>Tanggal Masuk</th>
+                                                <th>Bulan</th>
+                                                <th>Tahun</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -176,25 +218,22 @@ if (isset($_POST['hapus_int'])) {
                                           <?php 
 
                                         
-                                         
-                                          foreach (select_intro() as $int):
+                                         $no = 1;
+                                          foreach (select_masukan() as $msk):
 
                                            ?>
                                           <tr>
-                                         <td><?=$int['title'];?></td>
-                                          <td><?=$int['description'];?></td>
 
-                                          <td>
-                                             <?php 
+                                          <td><?=$no++;?></td>
+                                          <td><?=$msk['kd_sumber'];?></td>
+                                          <td><?=$msk['tipe_sumber'];?></td>
+                                          <td><?=$msk['nm_sumber'];?></td>
+                                          <td><?=rupiah($msk['nominal']);?></td>
+                                          <td><?=$msk['tgl_masuk'];?></td>
+                                          <td><?=$msk['bulan'];?></td>
+                                          <td><?=$msk['tahun'];?></td>
 
-                                                  if ($int['foto'] != "") {
-                                                    echo '<img src="img/'.$int['foto'].'" width="150">';
-                                                  }else{
-                                                    echo '<img src="img/user_logo.png" width="150">';
-                                                  }
-
-                                                   ?>
-                                          </td>
+                                        
                                           <td>
                                            <!-- Button trigger modal -->
                                           
@@ -202,23 +241,23 @@ if (isset($_POST['hapus_int'])) {
 
                                             <!-- Modal -->
                                             <!--  -->
-                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusint<?=$int['id'];?>">
+                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusMasukan<?=$msk['id'];?>">
                                               <i class="fa fa-trash"></i>
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="hapusint<?=$int['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="hapusMasukan<?=$msk['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                               <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Intro 
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Masukan 
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                       <span aria-hidden="true">&times;</span>
                                                     </button>
                                                   </div>
                                                   <div class="modal-body">
                                                     <form action="" method="POST">
-                                                      <input type="text" value="<?=$int['id'];?>" name="id" hidden>
+                                                      <input type="text" value="<?=$msk['id'];?>" name="id" hidden>
                                                     
                                                     <div class="form-group">
                                                     

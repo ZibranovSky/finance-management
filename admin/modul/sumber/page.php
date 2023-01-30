@@ -23,12 +23,12 @@ if (isset($_POST['hapus'])) {
   <div class="content-header">
      <div class="row mb-2">
           <div class="col-sm-6">
-           <h3 class="col-sm-6">Sumber Income</h3>
+           <h3 class="col-sm-6">Sumber / Income</h3>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Sumber Income</li>
+              <li class="breadcrumb-item active">Sumber / Income</li>
             </ol>
           </div><!-- /.col -->
         </div>
@@ -44,7 +44,7 @@ if (isset($_POST['hapus'])) {
 
 
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Tambah Sumber Income
+  Tambah Sumber / Income
 </button>
       <div class="row">
         <div class="col-sm-12"><br>
@@ -150,7 +150,7 @@ if (isset($_POST['hapus'])) {
                                           <td><?=$klb['kd_sumber'];?></td>
                                           <td><?=$klb['tipe_sumber'];?></td>
                                           <td><?=$klb['name'];?></td>
-                                          <td><?=$klb['balance'];?></td>
+                                          <td><?=rupiah($klb['balance']);?></td>
                                           <td><?=$klb['tgl_masuk'];?></td>
                                           <td><?=$klb['bulan'];?></td>
                                           <td><?=$klb['tahun'];?></td>
