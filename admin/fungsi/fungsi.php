@@ -206,6 +206,71 @@ function hapus_masukan()
 }
 
 
+// KELUARAN SECTION
+
+function select_keluaran()
+{
+	global $koneksi;
+	$id_admin = $_SESSION['idtuyul'];
+	return mysqli_query($koneksi, "SELECT * FROM keluarans WHERE id_admin='$id_admin'");
+}
+
+function insert_keluarans()
+{
+	global $koneksi;
+
+	date_default_timezone_set("Asia/Jakarta");
+	$tanggalSekarang = date("d-m-Y");
+	$jam2 = date("hi");
+	$jamSekarang = date("h:i a");
+	$bulan = date("m");
+	$tahun = date("Y");
+
+	$agenda = $_POST['agenda'];
+	$kd_sumber = $_POST['kd_sumber'];
+	$tipe_sumber = $_POST['tipe_sumber'];
+	$nm_sumber = $_POST['nm_sumber'];
+	$nominal_keluar = $_POST['nominal_keluar'];
+	$keterangan = $_POST['keterangan'];
+	$id_admin = $_SESSION['idtuyul'];
+
+	// select admin
+
+	$selec_admin = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id_admin'");
+	$row = mysqli_fetch_array($selec_admin);
+	$nama_admin = $row['name'];
+
+
+	// select sumber
+
+	$selec_sumber = mysqli_query($koneksi, "SELECT * FROM sumbers WHERE kd_sumber = '$kd_sumber' AND id_admin='$id_admin'");
+	$row_s = mysqli_fetch_array($selec_sumber);
+	$balance = $row_s['balance'];
+
+	if ($nominal_keluar <= 0) {
+		echo '<script>alert("Nominal masuk tidak boleh <= 0 ")</script>';
+	}else{
+		// Update balance
+		
+		$new_balance =  $balance - $nominal_keluar;
+		$update_sumber = mysqli_query($koneksi, "UPDATE sumbers SET balance='$new_balance' WHERE kd_sumber = '$kd_sumber' AND id_admin='$id_admin'");
+
+		// // insert masukan
+		$insert_masukan = mysqli_query($koneksi, "INSERT INTO keluarans SET agenda='$agenda', tipe_sumber='$tipe_sumber', nm_sumber='$nm_sumber', nominal_keluar='$nominal_keluar', tgl_keluar='$tanggalSekarang', keterangan='$keterangan', bulan='$bulan', tahun='$tahun', id_admin='$id_admin', admin='$nama_admin'");
+	}
+}
+
+
+function hapus_keluarans()
+{
+	global $koneksi;
+	$id = $_POST['id'];
+
+	return mysqli_query($koneksi, "DELETE FROM keluarans WHERE id='$id'");
+}
+
+
+
 // FUNCTION RUPIAH
 function rupiah($angka){
 	$hasil = "Rp. ". number_format($angka,2,',','.');

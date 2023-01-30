@@ -139,7 +139,7 @@
                         </li>
                          <li>
                                 <a href="index.php?m=keluaran&s=page">
-                                <i class="fas fa-star"></i>Keluaran Dana</a>
+                                <i class="fas fa-star"></i>Keluaran</a>
                             
                         </li>
                         <li>
@@ -249,7 +249,7 @@
                         </li>
                          <li>
                                 <a href="index.php?m=keluaran&s=page">
-                                <i class="fas fa-star"></i>Keluaran Dana</a>
+                                <i class="fas fa-star"></i>Keluaran</a>
                             
                         </li>
                         <li>

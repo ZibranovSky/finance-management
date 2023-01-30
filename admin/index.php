@@ -9,6 +9,7 @@ switch ($modul) {
 	case 'akun': $judul = "Akun $nama_app"; include 'modul/admin/akun.php'; break;
 	case 'sumber': include 'modul/sumber/index.php'; break;
 	case 'masukan': include 'modul/masukan/index.php'; break;
+	case 'keluaran': include 'modul/keluaran/index.php'; break;
 	
 	case 'rating': include 'modul/rating/index.php'; break;
 	case 'saran': include 'modul/saran/index.php'; break;

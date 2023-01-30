@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 02:15 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Generation Time: Jan 30, 2023 at 07:35 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `admins` (
   `password` varchar(255) NOT NULL,
   `name` text NOT NULL,
   `typeuser` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admins`
@@ -53,15 +53,23 @@ CREATE TABLE `keluarans` (
   `agenda` text NOT NULL,
   `tipe_sumber` text NOT NULL,
   `nm_sumber` text NOT NULL,
-  `balance` int(11) NOT NULL,
-  `tgl_masuk` text NOT NULL,
   `nominal_keluar` int(11) NOT NULL,
   `bulan` text NOT NULL,
-  `tanggal` text NOT NULL,
+  `tahun` text NOT NULL,
   `tgl_keluar` text NOT NULL,
   `keterangan` text NOT NULL,
+  `id_admin` int(11) NOT NULL,
   `admin` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `keluarans`
+--
+
+INSERT INTO `keluarans` (`id`, `agenda`, `tipe_sumber`, `nm_sumber`, `nominal_keluar`, `bulan`, `tahun`, `tgl_keluar`, `keterangan`, `id_admin`, `admin`) VALUES
+(2, 'Bayar y', 'ATM', 'Mandiri', 30000, '01', '2023', '31-01-2023', '', 1, 'Admin Z'),
+(3, 'Bayar z', 'ATM', 'Mandiri', 30000, '01', '2023', '31-01-2023', '-', 1, 'Admin Z'),
+(4, 'bayar hp', 'ATM', 'Mandiri', 20000, '01', '2023', '31-01-2023', '-', 1, 'Admin Z');
 
 -- --------------------------------------------------------
 
@@ -80,7 +88,14 @@ CREATE TABLE `masukans` (
   `tahun` text NOT NULL,
   `id_admin` int(11) NOT NULL,
   `admin` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `masukans`
+--
+
+INSERT INTO `masukans` (`id`, `kd_sumber`, `tipe_sumber`, `nm_sumber`, `nominal`, `tgl_masuk`, `bulan`, `tahun`, `id_admin`, `admin`) VALUES
+(10, 'INC001ATM', 'ATM', 'Mandiri', 40000, '30-01-2023', '01', '2023', 1, 'Admin Z');
 
 -- --------------------------------------------------------
 
@@ -99,14 +114,14 @@ CREATE TABLE `sumbers` (
   `tahun` text NOT NULL,
   `id_admin` int(11) NOT NULL,
   `admin` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `sumbers`
 --
 
 INSERT INTO `sumbers` (`id`, `kd_sumber`, `tipe_sumber`, `name`, `balance`, `tgl_masuk`, `bulan`, `tahun`, `id_admin`, `admin`) VALUES
-(2, 'INC001ATM', 'ATM', 'Mandiri', 160000, '30-01-2023', '01', '2023', 1, 'Admin Z');
+(2, 'INC001ATM', 'ATM', 'Mandiri', 120000, '30-01-2023', '01', '2023', 1, 'Admin Z');
 
 --
 -- Indexes for dumped tables
@@ -150,13 +165,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `keluarans`
 --
 ALTER TABLE `keluarans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `masukans`
 --
 ALTER TABLE `masukans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `sumbers`
