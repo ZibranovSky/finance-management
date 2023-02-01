@@ -143,8 +143,8 @@
                             
                         </li>
                         <li>
-                            <a href="index.php?m=rekap&s=page">
-                                <i class="fas fa-thumbs-up"></i>Rekap</a>
+                            <a href="index.php?m=report&s=page">
+                                <i class="fas fa-thumbs-up"></i>Report</a>
                             
                         </li>
                      
@@ -253,8 +253,8 @@
                             
                         </li>
                         <li>
-                            <a href="index.php?m=rekap&s=page">
-                                <i class="fas fa-thumbs-up"></i>Rekap</a>
+                            <a href="index.php?m=report&s=page">
+                                <i class="fas fa-thumbs-up"></i>Report</a>
                             
                         </li>
                        

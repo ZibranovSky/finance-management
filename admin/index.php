@@ -10,6 +10,7 @@ switch ($modul) {
 	case 'sumber': include 'modul/sumber/index.php'; break;
 	case 'masukan': include 'modul/masukan/index.php'; break;
 	case 'keluaran': include 'modul/keluaran/index.php'; break;
+	case 'report': include 'modul/report/index.php'; break;
 	
 	case 'rating': include 'modul/rating/index.php'; break;
 	case 'saran': include 'modul/saran/index.php'; break;
