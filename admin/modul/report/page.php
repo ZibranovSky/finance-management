@@ -102,6 +102,8 @@ if (isset($_POST['hapus'])) {
           </td>
           </tr>
           </form>
+
+
   </tbody>
 </table>  
 
@@ -122,7 +124,10 @@ if (isset($_POST['process'])) {
     $q_masukan = mysqli_query($koneksi, "SELECT sum(nominal) AS jmasukan FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
     $row_masuk = mysqli_fetch_array($q_masukan);
    
-  }
+  }else if($tipe_laporan == "keluaran"){
+    $query = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluar FROM keluarans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+    $row_keluar = mysqli_fetch_array($query);
+     }
 
 
 }
@@ -133,20 +138,38 @@ if (isset($_POST['process'])) {
 
 if (!isset($_POST['process'])) {
   echo "";
-}else{
+}else if(isset($_POST['process'])){
 
 ?>
 
 <table class="table-responsive table-borderless table-earning">
+    <?php 
+
+    if ($tipe_laporan=="masukan") {
+      
+  
+     ?>
   <tr>
+
     <td>Jumlah Masukkan</td>
-    <td><p><?= rupiah($row_masuk['jmasukan']);?></p></td>
+    <td><p><?= rupiah($row_masuk['jmasukan']); ?></p></td>
   </tr>
+
+<?php }else if ($tipe_laporan=="keluaran") { ?>
+ <tr>
+
+    <td>Jumlah Keluaran</td>
+    <td><p><?= rupiah($row_keluar['jkeluar']); ?></p></td>
+    <td><a href="index.php?id_admin<?=$adm['id'];?>" class="btn btn-success">Advanced Report</a></td>
+  </tr>
+<?php } ?>  
 </table>
 
 
 
 <?php } ?>
+
+
 
 <!-- Button trigger modal -->
 
