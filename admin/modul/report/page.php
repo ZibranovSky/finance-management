@@ -83,7 +83,7 @@ if (isset($_POST['hapus'])) {
           </tr>
 
           <tr>
-          <td>
+         <!--  <td>
               <label for="">Tipe Laporan : </label>
           </td>
           <td>
@@ -92,7 +92,7 @@ if (isset($_POST['hapus'])) {
               <option value="masukan">Masukan</option>
               <option value="keluaran">Keluaran</option>
             </select>
-          </td>
+          </td> -->
 
           </tr>
 
@@ -113,21 +113,35 @@ if (isset($_POST['process'])) {
   global $koneksi;
   $bulan = $_POST['bulan'];
   $tahun = $_POST['tahun'];
-  $tipe_laporan = $_POST['tipe_laporan'];
 
   
   // id admin
 
   $id_admin = $adm['id'];
 
-  if ($tipe_laporan == "masukan") {
-    $q_masukan = mysqli_query($koneksi, "SELECT sum(nominal) AS jmasukan FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
-    $row_masuk = mysqli_fetch_array($q_masukan);
+  // cek masukan
+  $select_masukan = mysqli_query($koneksi, "SELECT * FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+  $cek_masukkan = mysqli_num_rows($select_masukan);
+
+  // cek keluar
+   $select_keluar = mysqli_query($koneksi, "SELECT * FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+  $cek_keluar = mysqli_num_rows($select_keluar);
+
+  if ($cek_masukkan>0 && $cek_keluar>0) {
+    echo '<script>alert("data ditemukan")</script>';
+    
+  }else{
+    echo '<script>alert("data tidak ditemukan")</script>';
+  }
+
+  // if ($tipe_laporan == "masukan") {
+  //   $q_masukan = mysqli_query($koneksi, "SELECT sum(nominal) AS jmasukan FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+  //   $row_masuk = mysqli_fetch_array($q_masukan);
    
-  }else if($tipe_laporan == "keluaran"){
-    $query = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluar FROM keluarans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
-    $row_keluar = mysqli_fetch_array($query);
-     }
+  // }else if($tipe_laporan == "keluaran"){
+  //   $query = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluar FROM keluarans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+  //   $row_keluar = mysqli_fetch_array($query);
+  //    }
 
 
 }
@@ -142,27 +156,20 @@ if (!isset($_POST['process'])) {
 
 ?>
 
+
 <table class="table-responsive table-borderless table-earning">
     <?php 
 
-    if ($tipe_laporan=="masukan") {
+    if ($cek_masukkan>0) {
       
   
      ?>
   <tr>
 
-    <td>Jumlah Masukkan</td>
-    <td><p><?= rupiah($row_masuk['jmasukan']); ?></p></td>
+  <a href="index.php?m=report&s=laporan&id_admin=<?=$adm['id'];?>&bulan=<?=$bulan;?>&tahun=<?=$tahun;?>" class="btn btn-success">Advanced Report</a></td>
   </tr>
 
-<?php }else if ($tipe_laporan=="keluaran") { ?>
- <tr>
-
-    <td>Jumlah Keluaran</td>
-    <td><p><?= rupiah($row_keluar['jkeluar']); ?></p></td>
-    <td><a href="index.php?id_admin<?=$adm['id'];?>" class="btn btn-success">Advanced Report</a></td>
-  </tr>
-<?php } ?>  
+<?php } ?>
 </table>
 
 
@@ -171,48 +178,6 @@ if (!isset($_POST['process'])) {
 
 
 
-<!-- Button trigger modal -->
-
-<!-- Modal -->
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary mb-5" data-toggle="modal" data-target="#exampleModal">
-  Tambah Services
-</button> -->
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="" method="POST" enctype="multipart/form-data">
-          <div class="form-group">
-            <label>Title</label>
-            <input type="text" class="form-control" required name="title">
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" required name="description">
-          </div>
-          <div class="form-group">
-            <label>Foto / Gambar</label>
-            <input type="file" class="form-control" required name="foto">
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="simpan_prd" class="btn btn-primary">Tambah Data</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-<!-- Tabel -->
 <div class="row">
  <div class="table-responsive table--no-card m-b-30">
 
