@@ -4,6 +4,7 @@ global $koneksi;
 
 $id_admin = $_GET['id_admin'];
 $bulan = $_GET['bulan'];
+$tahun = $_GET['tahun'];
 
  ?>
 
@@ -58,8 +59,87 @@ $bulan = $_GET['bulan'];
 	</center>
 
 	<div class="row">
-		<strong><p>Bulan : </p> <?=$bulan;?></strong>
+        <table border="0"> 
+            <tr> 
+                <td><strong><p>Bulan : </p> </strong></td>
+                <td>
+                    <strong>
+
+        <?php if ($bulan == "01") {
+            echo '<p>Januari</p>';
+        }else if ($bulan=="02") {
+            echo '<p>Februari</p>';
+        
+        }else if ($bulan=="02") {
+            echo '<p>Februari</p>';
+        
+        } else if ($bulan=="03") {
+            echo '<p>Maret</p>';
+        
+        } else if ($bulan=="04") {
+            echo '<p>April</p>';
+        
+        } else if ($bulan=="05") {
+            echo '<p>Mei</p>';
+        
+        } else if ($bulan=="06") {
+            echo '<p>Juni</p>';
+        
+        } else if ($bulan=="07") {
+            echo '<p>Juli</p>';
+        
+        } else if ($bulan=="08") {
+            echo '<p>Agustus</p>';
+        
+        } else if ($bulan=="09") {
+            echo '<p>September</p>';
+        
+        } else if ($bulan=="10") {
+            echo '<p>Oktober</p>';
+        
+        } else if ($bulan=="11") {
+            echo '<p>November</p>';
+        
+        } else if ($bulan=="12") {
+            echo '<p>Desember</p>';
+        
+        } 
+
+        ?>
+
+        </strong>
+                </td>
+
+            </tr>
+
+            <tr>    
+                    <td><strong>Tahun : </strong></td>
+                    <td><strong><?=$tahun;?></strong></td>
+            </tr>
+
+           
+        </table>
+
+
+
+		
+
+     
 	</div>
+
+    <div class="row">
+        <p>Total income masuk : </p>
+
+        <?php 
+            global $koneksi;
+             $q_masukan = mysqli_query($koneksi, "SELECT sum(nominal) AS jmasukan FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+             $row_masuk = mysqli_fetch_array($q_masukan); 
+             
+             echo rupiah($row_masuk['jmasukan']);           
+         ?>
+
+         
+    </div>
 </div>
 
 
