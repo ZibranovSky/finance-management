@@ -49,7 +49,10 @@ $tahun = $_GET['tahun'];
 
 <body>
 
+
+
 <div class="container">
+
 	<center>
 		<section class="mt-5">
 			<p>Laporan Keuangan</p>
@@ -58,74 +61,85 @@ $tahun = $_GET['tahun'];
 		</section>
 	</center>
 
-	<div class="row">
-        <table border="0"> 
-            <tr> 
-                <td><strong><p>Bulan : </p> </strong></td>
-                <td>
-                    <strong>
+    <div class="row">
+    <div class="col">
+      <strong><p>Bulan</p></strong>
+    </div>
+    <div class="col-7">
+    <strong>
 
         <?php if ($bulan == "01") {
             echo '<p>Januari</p>';
         }else if ($bulan=="02") {
             echo '<p>Februari</p>';
-        
+
         }else if ($bulan=="02") {
             echo '<p>Februari</p>';
-        
+
         } else if ($bulan=="03") {
             echo '<p>Maret</p>';
-        
+
         } else if ($bulan=="04") {
             echo '<p>April</p>';
-        
+
         } else if ($bulan=="05") {
             echo '<p>Mei</p>';
-        
+
         } else if ($bulan=="06") {
             echo '<p>Juni</p>';
-        
+
         } else if ($bulan=="07") {
             echo '<p>Juli</p>';
-        
+
         } else if ($bulan=="08") {
             echo '<p>Agustus</p>';
-        
+
         } else if ($bulan=="09") {
             echo '<p>September</p>';
-        
+
         } else if ($bulan=="10") {
             echo '<p>Oktober</p>';
-        
+
         } else if ($bulan=="11") {
             echo '<p>November</p>';
-        
+
         } else if ($bulan=="12") {
             echo '<p>Desember</p>';
-        
+
         } 
 
         ?>
 
         </strong>
-                </td>
+            </div>
+        </div>
 
-            </tr>
+        <div class="row">
+    <div class="col">
+      <strong><p>Tahun</p></strong>
+    </div>
+    <div class="col-7">
+       <strong><?=$tahun;?></strong>
+         </div>
+     </div>
 
-            <tr>    
-                    <td><strong>Tahun : </strong></td>
-                    <td><strong><?=$tahun;?></strong></td>
-            </tr>
+     <div class="row">
+    <div class="col">
+      <strong><p>Jumlah Saldo</p></strong>
+    </div>
+    <div class="col-7">
+    <?php 
+                    
+                    global $koneksi;
+                    $cek_saldo = mysqli_query($koneksi, "SELECT * FROM sumbers WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+                    $row_saldo = mysqli_fetch_array($cek_saldo);
 
-           
-        </table>
 
+                    ?>
+                    <strong><?=rupiah($row_saldo['balance']);?></strong>
+         </div>
+     </div>
 
-
-		
-
-     
-	</div>
 
     <div class="row">
         <p>Total income masuk : </p>
@@ -136,6 +150,20 @@ $tahun = $_GET['tahun'];
              $row_masuk = mysqli_fetch_array($q_masukan); 
              
              echo rupiah($row_masuk['jmasukan']);           
+         ?>
+
+         
+    </div>
+
+    <div class="row">
+        <p>Total Pengeluaran : </p>
+
+        <?php 
+            global $koneksi;
+             $q_keluar = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluarans FROM keluarans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+             $row_keluar = mysqli_fetch_array($q_keluar); 
+             
+             echo rupiah($row_keluar['jkeluarans']);               
          ?>
 
          
