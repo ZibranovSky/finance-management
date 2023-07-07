@@ -129,7 +129,7 @@
                     <?php } ?>
                          <li>
                             <a href="index.php?m=sumber&s=awal">
-                                <i class="fas fa-id-card"></i>Sumber / Income</a>
+                                <i class="fas fa-id-card"></i>Saldo</a>
                             
                         </li>
                          <li>
@@ -239,7 +239,7 @@
                     <?php } ?>
                          <li>
                             <a href="index.php?m=sumber&s=awal">
-                                <i class="fas fa-id-card"></i>Sumber / Income</a>
+                                <i class="fas fa-id-card"></i>Saldo</a>
                             
                         </li>
                          <li>

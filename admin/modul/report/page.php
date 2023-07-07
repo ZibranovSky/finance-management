@@ -47,11 +47,39 @@ if (isset($_POST['hapus'])) {
       <div class="row">
         <div class="col-sm-12"><br>
         <table class="table-responsive table-borderless table-earning">
-				<tbody>
+
           <form action="" method="POST">
-					<tr>
-					<td>Bulan : </td>
-					<td>
+             <tr>
+              <td>Periode</td>
+              <td><select name="periode" class="form-control">
+                <option value="--">-Pilih Periode-</option>
+                <option value="all">Semua Periode</option>
+                <option value="bulan">Bulanan</option>
+              </select>
+
+              </td>
+              <td><button class="btn btn-warning" type="submit" name="cari"><i class="fas fa-sign-in-alt"></i></button></td>
+            </tr>
+           
+           <?php 
+            if (isset($_POST['cari'])) {
+              $periode = $_POST['periode'];
+               if ($periode == "all") {
+                echo '<script>alert("anda memilih all periode")</script>';
+              
+            }else{
+
+          
+
+           
+
+
+            
+            ?>
+
+              <td>Bulan : </td>
+
+          <td>
             <select name="bulan" required id="" class="form-control">
               <option value="--">--</option>
               <option value="01">Januari</option>
@@ -70,7 +98,7 @@ if (isset($_POST['hapus'])) {
           </td>
           
           
-					</tr>
+          </tr>
 
           <tr>
           <td>
@@ -101,6 +129,13 @@ if (isset($_POST['hapus'])) {
             <button type="submit" name="process" class="btn btn-primary">Cari Laporan</button>
           </td>
           </tr>
+
+          <tr>
+
+            <?php }
+
+            } ?>
+				
           </form>
 
 
