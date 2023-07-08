@@ -67,7 +67,12 @@ function select_admin_2()
 }
 
 
-
+function hitung_saldo(){
+	global $koneksi;
+	$select = mysqli_query($koneksi, "SELECT sum(balance) AS jsaldo FROM sumbers");
+	$r = mysqli_fetch_array($select);
+	echo rupiah($r['jsaldo']);
+}
 
 
 // sumber section

@@ -44,20 +44,31 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <div class="statistic__item">
+                                    <h2 class="number"><?=hitung_saldo();?></h2>
+                                    <span class="desc" style="color: #181818;">Jumlah Saldo</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-money"></i>
+                                    </div>
+                                </div>
+                            </div>
                           
                         </div>
                     </div>
                 </div>
+
+                
             </section>
+
+        
+
+            
 
             <!-- END STATISTIC-->
             
          
-
-            <!-- END PAGE CONTAINER-->
-        </div>
-
-    </div>
 
     <!-- Jquery JS-->
   <?php include 'comp/footer.php'; ?>
