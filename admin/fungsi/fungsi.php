@@ -69,7 +69,8 @@ function select_admin_2()
 
 function hitung_saldo(){
 	global $koneksi;
-	$select = mysqli_query($koneksi, "SELECT sum(balance) AS jsaldo FROM sumbers");
+	$id = $_SESSION['idtuyul'];
+	$select = mysqli_query($koneksi, "SELECT sum(balance) AS jsaldo FROM sumbers where id_admin='$id'");
 	$r = mysqli_fetch_array($select);
 	echo rupiah($r['jsaldo']);
 }
@@ -79,7 +80,8 @@ function hitung_saldo(){
 function select_sumbers()
 {
 	global $koneksi;
-	return mysqli_query($koneksi, "SELECT * FROM sumbers");
+	$id = $_SESSION['idtuyul'];
+	return mysqli_query($koneksi, "SELECT * FROM sumbers WHERE id_admin='$id'");
 }
 
 function insert_sumbers()

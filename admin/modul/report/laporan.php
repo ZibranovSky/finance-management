@@ -141,33 +141,77 @@ $tahun = $_GET['tahun'];
      </div>
 
 
-    <div class="row">
-        <p>Total income masuk : </p>
+ 
+</div>
 
-        <?php 
-            global $koneksi;
-             $q_masukan = mysqli_query($koneksi, "SELECT sum(nominal) AS jmasukan FROM masukans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
-             $row_masuk = mysqli_fetch_array($q_masukan); 
-             
-             echo rupiah($row_masuk['jmasukan']);           
-         ?>
 
-         
-    </div>
+<div class="container mt-5">
+        <center>Laporan Pemasukkan</center>
+    <section class="mt-5">
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Sumber</th>
+      <th scope="col">Jumlah Masuk</th>
+      <th scope="col">Tanggal Masuk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+    $no = 1;
+    global $koneksi;
+    $select_masuk = mysqli_query($koneksi, "SELECT * FROM masukans WHERE id_admin='$id_admin'");
 
-    <div class="row">
-        <p>Total Pengeluaran : </p>
+    foreach ($select_masuk as $masuk) {
+    
+    ?>
+    <tr>
+      <th scope="row"><?= $no++; ?></th>
+      <td><?= $masuk['nm_sumber']; ?></td>
+      <td><?=rupiah($masuk['nominal']);?></td>
+      <td><?= $masuk['tgl_masuk'];?></td>
+    </tr>
+    <?php } ?>
+  </tbody>
+</table>
+    </section>
+</div>
 
-        <?php 
-            global $koneksi;
-             $q_keluar = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluarans FROM keluarans WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
-             $row_keluar = mysqli_fetch_array($q_keluar); 
-             
-             echo rupiah($row_keluar['jkeluarans']);               
-         ?>
 
-         
-    </div>
+<div class="container mt-5">
+        <center>Laporan Keluaran</center>
+    <section class="mt-5">
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Sumber</th>
+      <th scope="col">Agenda</th>
+      <th scope="col">Jumlah Keluar</th>
+      <th scope="col">Tanggal Keluar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+    $no = 1;
+    global $koneksi;
+    $select_keluar = mysqli_query($koneksi, "SELECT * FROM keluarans WHERE id_admin='$id_admin'");
+
+    foreach ($select_keluar as $keluar) {
+    
+    ?>
+    <tr>
+      <th scope="row"><?= $no++; ?></th>
+      <td><?= $keluar['nm_sumber']; ?></td>
+      <td><?=$keluar['agenda'];?></td>
+      <td><?=rupiah($keluar['nominal_keluar']);?></td>
+      <td><?= $keluar['tgl_keluar'];?></td>
+    </tr>
+    <?php } ?>
+  </tbody>
+</table>
+    </section>
 </div>
 
 
