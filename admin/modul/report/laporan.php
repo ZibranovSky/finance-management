@@ -123,27 +123,37 @@ $tahun = $_GET['tahun'];
          </div>
      </div>
 
-     <div class="row">
-    <div class="col">
-      <strong><p>Jumlah Saldo</p></strong>
-    </div>
-    <div class="col-7">
-    <?php 
-                    
-                    global $koneksi;
-                    $cek_saldo = mysqli_query($koneksi, "SELECT * FROM sumbers WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
-                    $row_saldo = mysqli_fetch_array($cek_saldo);
-
-
-                    ?>
-                    <strong><?=rupiah($row_saldo['balance']);?></strong>
-         </div>
-     </div>
-
-
  
 </div>
 
+
+<div class="container mt-5">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Sumber Saldo</th>
+      <th scope="col">Jumlah Saldo</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php
+        global $koneksi;
+        $cek_saldo = mysqli_query($koneksi, "SELECT * FROM sumbers WHERE bulan='$bulan' AND tahun='$tahun' AND id_admin='$id_admin'");
+        
+        foreach($cek_saldo as $saldo): 
+     ?>
+    <tr>
+      <th scope="row">1</th>
+      <td><strong><?= $saldo['name']; ?></strong></td>
+      <td><strong><?=rupiah($saldo['balance']);?></strong></td>
+    </tr>
+
+      <?php endforeach; ?>
+   
+  </tbody>
+</table>
+</div>
 
 <div class="container mt-5">
         <center>Laporan Pemasukkan</center>

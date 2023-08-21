@@ -201,7 +201,7 @@ if (!isset($_POST['process'])) {
      ?>
   <tr>
 
-  <a href="index.php?m=report&s=laporan&id_admin=<?=$adm['id'];?>&bulan=<?=$bulan;?>&tahun=<?=$tahun;?>" class="btn btn-success">Advanced Report</a></td>
+  <a href="index.php?m=report&s=laporan&id_admin=<?=$adm['id'];?>&bulan=<?=$bulan;?>&tahun=<?=$tahun;?>" class="btn btn-success" target="_BLANK">Advanced Report</a></td>
   </tr>
 
 <?php } ?>
