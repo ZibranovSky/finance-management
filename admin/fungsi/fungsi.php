@@ -75,6 +75,14 @@ function hitung_saldo(){
 	echo rupiah($r['jsaldo']);
 }
 
+function hitung_pengeluaran(){
+	global $koneksi;
+	$id = $_SESSION['idtuyul'];
+	$select = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluaran FROM keluarans where id_admin='$id'");
+	$r = mysqli_fetch_array($select);
+	echo rupiah($r['jkeluaran']);
+}
+
 
 // sumber section
 function select_sumbers()

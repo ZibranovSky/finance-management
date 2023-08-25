@@ -56,6 +56,31 @@
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script>
+        function showSaldo()
+        {
+            var saldo = document.getElementById("saldo");
+
+            if (saldo.hidden == true) {
+                saldo.hidden = false;
+            }else{
+                saldo.hidden = true;
+            }
+
+        }
+
+        function showKeluar()
+        {
+            var saldo = document.getElementById("saldo_keluar");
+
+            if (saldo.hidden == true) {
+                saldo.hidden = false;
+            }else{
+                saldo.hidden = true;
+            }
+
+        }
+    </script>
   
 
 </body>

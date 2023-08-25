@@ -133,7 +133,7 @@ if (isset($_POST['hapus_klr'])) {
         
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control" required="" autocomplete="off" name="keterangan"></textarea>
+            <textarea class="form-control" autocomplete="off" name="keterangan"></textarea>
           </div>
       </div>
       <div class="modal-footer">

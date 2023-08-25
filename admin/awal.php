@@ -47,13 +47,24 @@
 
                             <div class="col-md-6 col-lg-4">
                                 <div class="statistic__item">
-                                    <h2 class="number"><?=hitung_saldo();?></h2>
+                                    <h2 class="number" id="saldo" hidden><?=hitung_saldo();?></h2> <button onclick="showSaldo()" class="btn btn-success"><i class="fa fa-eye"></i></button>
                                     <span class="desc" style="color: #181818;">Jumlah Saldo</span>
                                     <div class="icon">
                                         <i class="zmdi zmdi-money"></i>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <div class="statistic__item">
+                                    <h2 class="number" id="saldo_keluar" hidden><?=hitung_pengeluaran();?></h2> <button onclick="showKeluar()" class="btn btn-success"><i class="fa fa-eye"></i></button>
+                                    <span class="desc" style="color: #181818;">Pengeluaran</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-money"></i>
+                                    </div>
+                                </div>
+                            </div>
+                          
                           
                         </div>
                     </div>
@@ -62,7 +73,7 @@
                 
             </section>
 
-        
+
 
             
 

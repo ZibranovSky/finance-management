@@ -171,7 +171,7 @@ $tahun = $_GET['tahun'];
     <?php 
     $no = 1;
     global $koneksi;
-    $select_masuk = mysqli_query($koneksi, "SELECT * FROM masukans WHERE id_admin='$id_admin'");
+    $select_masuk = mysqli_query($koneksi, "SELECT * FROM masukans WHERE id_admin='$id_admin' AND bulan='$bulan'");
 
     foreach ($select_masuk as $masuk) {
     
@@ -185,6 +185,23 @@ $tahun = $_GET['tahun'];
     <?php } ?>
   </tbody>
 </table>
+    
+<div class="row mt-3">
+     <div class="col">
+      <strong><p>Total Pemasukan Bulan Ini : </p></strong>
+    </div>
+ <?php 
+
+    global $koneksi;
+    $j_masuk = mysqli_query($koneksi, "SELECT SUM(nominal) AS jmasukkan FROM masukans WHERE id_admin='$id_admin' AND bulan='$bulan'");
+    $total_masuk = mysqli_fetch_array($j_masuk);
+
+     ?>
+    <div class="col-7">
+       <strong><?=rupiah($total_masuk['jmasukkan']);?></strong>
+         </div>   
+</div>
+
     </section>
 </div>
 
@@ -206,7 +223,7 @@ $tahun = $_GET['tahun'];
     <?php 
     $no = 1;
     global $koneksi;
-    $select_keluar = mysqli_query($koneksi, "SELECT * FROM keluarans WHERE id_admin='$id_admin'");
+    $select_keluar = mysqli_query($koneksi, "SELECT * FROM keluarans WHERE id_admin='$id_admin' AND bulan='$bulan'");
 
     foreach ($select_keluar as $keluar) {
     
@@ -221,6 +238,22 @@ $tahun = $_GET['tahun'];
     <?php } ?>
   </tbody>
 </table>
+
+<div class="row mt-3">
+     <div class="col">
+      <strong><p>Total Pengeluaran Bulan Ini : </p></strong>
+    </div>
+ <?php 
+
+    global $koneksi;
+    $j_masuk = mysqli_query($koneksi, "SELECT SUM(nominal_keluar) AS jkeluaran FROM keluarans WHERE id_admin='$id_admin' AND bulan='$bulan'");
+    $total_keluar = mysqli_fetch_array($j_masuk);
+
+     ?>
+    <div class="col-7">
+       <strong><?=rupiah($total_keluar['jkeluaran']);?></strong>
+         </div>   
+</div>
     </section>
 </div>
 
