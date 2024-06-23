@@ -78,7 +78,11 @@ function hitung_saldo(){
 function hitung_pengeluaran(){
 	global $koneksi;
 	$id = $_SESSION['idtuyul'];
-	$select = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluaran FROM keluarans where id_admin='$id'");
+	date_default_timezone_set("Asia/Jakarta");
+
+  $bulan = date("m");
+  
+	$select = mysqli_query($koneksi, "SELECT sum(nominal_keluar) AS jkeluaran FROM keluarans where id_admin='$id' AND bulan='$bulan'");
 	$r = mysqli_fetch_array($select);
 	echo rupiah($r['jkeluaran']);
 }
@@ -247,10 +251,12 @@ function insert_keluarans()
 	$nm_sumber = $_POST['nm_sumber'];
 	$nominal_keluar = $_POST['nominal_keluar'];
 	$keterangan = $_POST['keterangan'];
+	$diutangkan = $_POST['diutangkan'];
 	$id_admin = $_SESSION['idtuyul'];
 
 	// select admin
 
+	
 	$selec_admin = mysqli_query($koneksi, "SELECT * FROM admins WHERE id='$id_admin'");
 	$row = mysqli_fetch_array($selec_admin);
 	$nama_admin = $row['name'];
@@ -262,8 +268,10 @@ function insert_keluarans()
 	$row_s = mysqli_fetch_array($selec_sumber);
 	$balance = $row_s['balance'];
 
+
+
 	if ($nominal_keluar <= 0) {
-		echo '<script>alert("Nominal masuk tidak boleh <= 0 ")</script>';
+		echo '<script>alert("Nominal keluar tidak boleh <= 0 ")</script>';
 	}else{
 		// Update balance
 		
@@ -271,7 +279,7 @@ function insert_keluarans()
 		$update_sumber = mysqli_query($koneksi, "UPDATE sumbers SET balance='$new_balance' WHERE kd_sumber = '$kd_sumber' AND id_admin='$id_admin'");
 
 		// // insert masukan
-		$insert_masukan = mysqli_query($koneksi, "INSERT INTO keluarans SET agenda='$agenda', tipe_sumber='$tipe_sumber', nm_sumber='$nm_sumber', nominal_keluar='$nominal_keluar', tgl_keluar='$tanggalSekarang', keterangan='$keterangan', bulan='$bulan', tahun='$tahun', id_admin='$id_admin', admin='$nama_admin'");
+		$insert_masukan = mysqli_query($koneksi, "INSERT INTO keluarans SET agenda='$agenda', tipe_sumber='$tipe_sumber', nm_sumber='$nm_sumber', nominal_keluar='$nominal_keluar', tgl_keluar='$tanggalSekarang', keterangan='$keterangan', utang='$diutangkan', bulan='$bulan', tahun='$tahun', id_admin='$id_admin', admin='$nama_admin'");
 	}
 }
 
@@ -280,6 +288,7 @@ function hapus_keluarans()
 {
 	global $koneksi;
 	$id = $_POST['id'];
+		
 
 	return mysqli_query($koneksi, "DELETE FROM keluarans WHERE id='$id'");
 }

@@ -72,9 +72,7 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
             <div class="logo">
-                <a href="index.php">
-                    <img src="<?=url()?>images/logo_netland.png" alt="CRM" width="120px" height="20px" />
-                </a>
+             
             </div>
             <div class="menu-sidebar2__content js-scrollbar1">
                 <div class="account2">

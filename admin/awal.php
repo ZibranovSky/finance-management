@@ -35,7 +35,7 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6 col-lg-3">
+                            <!-- <div class="col-md-6 col-lg-3">
                                 <div class="statistic__item">
                                     <h2 class="number"><?=select_admin_2();?></h2>
                                     <span class="desc" style="color: #181818;">Jumlah Admin</span>
@@ -43,7 +43,7 @@
                                         <i class="zmdi zmdi-account-o"></i>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="col-md-6 col-lg-4">
                                 <div class="statistic__item">
@@ -58,7 +58,7 @@
                             <div class="col-md-6 col-lg-4">
                                 <div class="statistic__item">
                                     <h2 class="number" id="saldo_keluar" hidden><?=hitung_pengeluaran();?></h2> <button onclick="showKeluar()" class="btn btn-success"><i class="fa fa-eye"></i></button>
-                                    <span class="desc" style="color: #181818;">Pengeluaran</span>
+                                    <span class="desc" style="color: #181818;">Pengeluaran Bulan Ini</span>
                                     <div class="icon">
                                         <i class="zmdi zmdi-money"></i>
                                     </div>

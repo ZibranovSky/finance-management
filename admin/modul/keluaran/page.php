@@ -130,6 +130,14 @@ if (isset($_POST['hapus_klr'])) {
             <label>Nominal Keluar</label>
             <input type="number" class="form-control" required="" autocomplete="off" name="nominal_keluar"> 
           </div>
+
+          <div class="form-group">
+            <label>Di Utangkan ? </label>
+            <select name="diutangkan" class="form-control">
+              <option value="yes">yes</option>
+              <option value="no">no</option>
+            </select>
+          </div>
         
           <div class="form-group">
             <label>Keterangan</label>
@@ -213,6 +221,7 @@ if (isset($_POST['hapus_klr'])) {
                                                 <th>Bulan</th>
                                                 <th>Tahun</th>
                                                 <th>Keterangan</th>
+                                                <th>Di utangkan</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -237,6 +246,7 @@ if (isset($_POST['hapus_klr'])) {
                                           <td><?=$klr['bulan'];?></td>
                                           <td><?=$klr['tahun'];?></td>
                                           <td><?=$klr['keterangan'];?></td>
+                                          <td><?=$klr['utang'];?></td>
 
 
                                         
